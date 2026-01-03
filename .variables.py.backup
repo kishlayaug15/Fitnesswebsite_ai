@@ -1,0 +1,13 @@
+name = "Kishlay Kumar"
+url = "http://localhost:11434"
+url2 = "http://localhost:11434"
+model_name = "llava"
+instructions = "Tell about the health and diet planning. Going to gym is good for health"
+first_prompt = "Hi there"
+sleep_timer = 0.0005
+plan_type = "Cardio"
+duration = 45
+intensity = "Moderate"
+diet_type = "5"
+calories = 2200
+user_data = {'Age': '24', 'Weight': '55', 'Height': '169', 'activity_level': 'Sedentary', 'Gender': 'Male'}

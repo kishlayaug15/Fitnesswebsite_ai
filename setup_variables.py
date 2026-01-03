@@ -1,0 +1,77 @@
+import os
+import shutil
+import navfile
+
+# Only variables in this variable will be saved!
+variables = {}
+def variables_ollama():
+    variables['url'] = input('Enter your main Ollama URL (http://...): ')
+    setup_url2 = input('Do you want to set up a secondary Ollama instance? (y/n): ')
+    if setup_url2 in ('y', 'yes'):
+        variables['url2'] = input('Enter your secondary Ollama URL (http://...): ')
+    else:
+        variables['url2'] = variables['url']
+    variables['model_name'] = input ('Enter the Ollama model name in both instances: ')
+
+def variables_logic():
+    variables['instructions'] = input('What instructions do you want your assistant to follow: \n')
+    variables['first_prompt'] = input('What should be the first prompt from the assistant?: \n')
+    variables['sleep_timer'] = 0.0005
+
+def variables_personal():
+    variables['name'] = input('Enter your full name: ')
+    #variables['picture'] = input('Enter the location of a picture of yourself: ')
+    # variables['url_linkedin'] = input('Enter the link to your Linkedin profile: ')
+    # variables['url_github'] = input('Enter the link to your GitHub profile: ')
+    #variables['url_report'] = input('Enter the link to your static health report: ')
+
+def variables_workout():
+    variables['plan_type'] = str(input('Enter your gym plan: '))
+    variables['duration'] = int(input('Enter workout duration: '))
+    variables['intensity'] = str(input('Enter your relative workout intensity: '))
+
+def variables_meal():
+    variables['diet_type'] = str(input('Enter your diet type: '))
+    variables['calories'] = int(input('Daily calorie target to achieve: '))
+
+def variables_health():
+    user_data = {}
+    health_params = int(input("Enter the User Health Information (Params): "))
+    for i in range(health_params):
+        key = input(f"Enter health parameter {i+1}: ")
+        value = input(f"Enter {key} value: ")
+        user_data[key] = value
+    variables['user_data'] = user_data
+
+def file_save_variables():
+    if 'variables.py' in os.listdir():
+        print('An old copy of variabels.py was moved to .variables.py.backup')
+        shutil.copy('variables.py', '.variables.py.backup')
+    with open('variables.py', 'w') as file:
+        for variable, value in variables.items():
+            if type(value) == str:
+                file.write(f'{variable} = "{value}"\n')
+            else:
+                file.write(f"{variable} = {value}\n")
+
+print('#################################################################')
+print('You are starting the setup of your variables.py configuration :D')
+print('#################################################################')
+print('!!! Remember not to use the " character or the setup will fail !!!')
+print('\n## Configuring your personal information ##')
+variables_personal()
+print('\n## Configuring your Ollama server information ##')
+variables_ollama()
+print('\n## Configuring your session logic ##')
+variables_logic()
+print('\n## Configuring your gym workout session ##')
+variables_workout()
+print('\n## Configuring your eating habits ##')
+variables_meal()
+print('\n## Configuring your health report ##')
+variables_health()
+print('\n## Saving to your variables.py file ##')
+file_save_variables()
+print('################################################################')
+print('All done! Thanks for using my tool!!')
+print('################################################################')
